@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package com.mycompany.loginapp;
 import java.util.Scanner;
 
@@ -13,49 +10,100 @@ import java.util.Scanner;
 public class LoginReg {
     
     public static void main(String[] args) {
-        // Create an instance of LoginApp to use its methods
-        LoginApp app = new LoginApp();
-        Scanner input = new Scanner(System.in);
+       LoginApp app = new LoginApp();
+    Scanner input = new Scanner(System.in);
 
-        System.out.println("--- REGISTRATION ---");
-        
-        System.out.println("Enter First Name: ");
-        String fName = input.nextLine();
-        
-        System.out.println("Enter Last Name: ");
-        String lName = input.nextLine();
-        
-        System.out.println("Enter Username: ");
-        String uName = input.nextLine();
-        
-        System.out.println("Enter Password: ");
-        String pass = input.nextLine();
-        
-        System.out.println("Enter Cell Phone Number (e.g., +27831234567/0831234567): ");
-        String cell = input.nextLine();
+    // --- PART 1: Registration & Login ---
+    System.out.println("--- REGISTRATION ---");
+    System.out.print("Enter First Name: "); String fName = input.nextLine();
+    System.out.print("Enter Last Name: "); String lName = input.nextLine();
+    System.out.print("Enter Username: "); String uName = input.nextLine();
+    System.out.print("Enter Password: "); String pass = input.nextLine();
+    System.out.print("Enter Cell Phone Number (e.g., +27831234567): "); String cell = input.nextLine();
 
-        // Call the registration method
-        String registrationMessage = app.registerUser(uName, pass, cell, fName, lName);
-        System.out.println(registrationMessage);
+    String regMsg = app.registerUser(uName, pass, cell, fName, lName);
+    System.out.println(regMsg);
 
-        // Only proceed to login if registration was successful
-        if (registrationMessage.equals("User registered successfully.")) {
-            System.out.println("\n--- LOGIN ---");
-            
-            System.out.print("Enter username to login: ");
-            String loginUsername = input.nextLine();
-            
-            System.out.print("Enter cell phone number to login: ");
-            String loginCellnum = input.nextLine();
-            
-            System.out.print("Enter password to login: ");
-            String loginPassword = input.nextLine();
-            
-            boolean isLoggedIn = app.loginUser(loginUsername, loginPassword, loginCellnum);
-            System.out.println("\nLogin Status: \n" + app.returnLoginStatus(isLoggedIn));
+    boolean isLoggedIn = false;
+    if (regMsg.equals("User registered successfully.")) {
+        System.out.println("\n--- LOGIN ---");
+        System.out.print("Enter username: "); String loginUser = input.nextLine();
+        System.out.print("Enter password: "); String loginPass = input.nextLine();
+        isLoggedIn = app.loginUser(loginUser, loginPass, cell); 
+    }
+
+    // --- PART 2: QuickChat Messaging ---
+    if (isLoggedIn) {
+        System.out.println("\nWelcome to QuickChat.");
+        System.out.print("How many messages do you wish to enter? ");
+        int numMessages = input.nextInt();
+        input.nextLine(); // Clear buffer
+        
+        int messagesProcessed = 0;
+        boolean running = true;
+
+        while (running) {
+            System.out.println("\n--- MENU ---");
+            System.out.println("1) Send Messages");
+            System.out.println("2) Show recently sent messages");
+            System.out.println("3) Quit");
+            System.out.print("Choose: ");
+            int menuChoice = input.nextInt();
+            input.nextLine();
+
+            switch (menuChoice) {
+                case 1:
+                    if (messagesProcessed >= numMessages) {
+                        System.out.println("You have reached your message limit.");
+                        break;
+                    }
+                    
+                    System.out.print("Enter recipient cell (+27...): ");
+                    String recipient = input.nextLine();
+                    System.out.print("Enter message: ");
+                    String text = input.nextLine();
+                    
+                    Message msg = new Message(recipient, text);
+                    
+                    // Check rules before asking user what to do
+                    String cellCheck = msg.checkRecipientCell();
+                    String lengthCheck = msg.checkMessageLength();
+                    System.out.println(cellCheck);
+                    System.out.println(lengthCheck);
+                    
+                    if (cellCheck.equals("Cell phone number successfully captured.") && 
+                        lengthCheck.equals("Message ready to send.")) {
+                        
+                        System.out.println("1) Send | 2) Disregard | 3) Store");
+                        int action = input.nextInt();
+                        input.nextLine();
+                        
+                        System.out.println(msg.SentMessage(action));
+                        
+                        if (action == 1) {
+                            System.out.println("\n--- Details ---");
+                            System.out.println("ID: " + msg.getMessageID());
+                            System.out.println("Hash: " + msg.getMessageHash());
+                            System.out.println("Recipient: " + msg.getRecipient());
+                            System.out.println("Message: " + msg.getMessageText());
+                            messagesProcessed++;
+                        }
+                    }
+                    break;
+                    
+                case 2:
+                    System.out.println("Coming Soon.");
+                    break;
+                    
+                case 3:
+                    Message dummy = new Message("+27000000000", "dummy");
+                    System.out.println("Total messages sent: " + dummy.returnTotalMessagess());
+                    System.out.println("Goodbye!");
+                    running = false;
+                    break;
+            }
         }
-
-        input.close();
+    }
+    input.close();
     }
 }
-
