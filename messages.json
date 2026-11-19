@@ -1,4 +1,37 @@
-{"messageText":"Hello","messageNumber":2,"recipient":"+27718693002","messageID":"8834324247","messageHash":"88:2:HELLOHELLO"}
-{"messageText":"Hello","messageNumber":2,"recipient":"+27718693002","messageID":"1078022275","messageHash":"10:2:HELLOHELLO"}
-{"messageText":"Hello","messageNumber":2,"recipient":"+27718693002","messageID":"5747657920","messageHash":"57:2:HELLOHELLO"}
-{"messageText":"Hello","messageNumber":2,"recipient":"+27718693002","messageID":"2924108150","messageHash":"29:2:HELLOHELLO"}
+[
+    {
+        "messageText": "Magogo",
+        "messageNumber": 2,
+        "recipient": "+27844072822",
+        "messageID": "0589622026",
+        "messageHash": "05:2:MAGOGOMAGOGO"
+    },
+    {
+        "messageText": "Hello",
+        "messageNumber": 2,
+        "recipient": "+27718693002",
+        "messageID": "0888179250",
+        "messageHash": "08:2:HELLOHELLO"
+    },
+    {
+        "messageText": "Hello",
+        "messageNumber": 2,
+        "recipient": "+27718693002",
+        "messageID": "0741093790",
+        "messageHash": "07:2:HELLOHELLO"
+    },
+    {
+        "messageText": "Hello",
+        "messageNumber": 2,
+        "recipient": "+27718693002",
+        "messageID": "0378323095",
+        "messageHash": "03:2:HELLOHELLO"
+    },
+    {
+        "messageText": "Hello",
+        "messageNumber": 2,
+        "recipient": "+27718693002",
+        "messageID": "0509026197",
+        "messageHash": "05:2:HELLOHELLO"
+    }
+]
